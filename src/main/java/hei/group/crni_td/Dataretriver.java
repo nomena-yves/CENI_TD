@@ -5,6 +5,8 @@ import hei.group.crni_td.DatabaseConnection.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Dataretriver {
 
@@ -24,4 +26,31 @@ public class Dataretriver {
         }
         return count;
     }
+
+    public List<VoteTypeCount> getCountVotesByType() {
+        String sql="select vote_type, count(vote_type) as acount from vote group by vote_type";
+        VoteTypeCount voteTypeCount=null;
+        List<VoteTypeCount> voteTypeCountList=new ArrayList<VoteTypeCount>();
+        try {
+            DatabaseConnection connection = new DatabaseConnection();
+            Connection conn= connection.getConnection();
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()){
+                voteTypeCount=new VoteTypeCount(
+                        VoteType.valueOf(rs.getString("vote_type")),
+                        rs.getInt("acount")
+                );
+                voteTypeCountList.add(voteTypeCount);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return voteTypeCountList;
+    }
+
+    List<CandidateVoteCount> countValidVotesByCandidate(){
+
+    }
+
 }
