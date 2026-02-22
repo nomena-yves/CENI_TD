@@ -10,7 +10,8 @@ public class Main {
         try{
             //System.out.println(dataretriver.getCountVotesByType());
             //System.out.println(dataretriver.computeVoteSummary());
-            System.out.println(dataretriver.countValidVotesByCandidate());
+            //System.out.println(dataretriver.countValidVotesByCandidate());
+            System.out.println(dataretriver.countAllVote());
         }catch(Exception e){
             e.getMessage();
         }

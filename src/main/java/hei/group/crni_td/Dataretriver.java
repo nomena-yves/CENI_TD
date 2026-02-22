@@ -16,7 +16,7 @@ public class Dataretriver {
         try{
             DatabaseConnection connection = new DatabaseConnection();
             Connection conn= connection.getConnection();
-            String sql = "select count(id,candidate_id,voter_id,vote_type) as count from vote";
+            String sql = "select count(id) as count from vote";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
@@ -50,7 +50,7 @@ public class Dataretriver {
         return voteTypeCountList;
     }
 
-    List<CandidateVoteCount> countValidVotesByCandidate(){
+   public List<CandidateVoteCount> countValidVotesByCandidate(){
     String sql="select count(v.vote_type) as acount,c.name from vote v right join candidate c on v.candidate_id=c.id and vote_type='VALID' group by c.name";
         List<CandidateVoteCount> candidateVoteCounts=new ArrayList<CandidateVoteCount>();
         CandidateVoteCount candidateVoteCount=null;
