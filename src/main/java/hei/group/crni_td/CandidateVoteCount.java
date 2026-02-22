@@ -4,10 +4,11 @@ import java.util.Objects;
 
 public class CandidateVoteCount {
     String candidate;
-    VoteType voteType =VoteType.VALID;
+    int validVoteCount ;
 
-    public CandidateVoteCount(String candidate) {
+    public CandidateVoteCount(String candidate, int validVoteCount) {
         this.candidate = candidate;
+        this.validVoteCount = validVoteCount;
     }
 
     public String getCandidate() {
@@ -18,31 +19,31 @@ public class CandidateVoteCount {
         this.candidate = candidate;
     }
 
-    public VoteType getVoteType() {
-        return voteType;
+    public int getValidVoteCount() {
+        return validVoteCount;
     }
 
-    public void setVoteType(VoteType voteType) {
-        this.voteType = voteType;
+    public void setValidVoteCount(int validVoteCount) {
+        this.validVoteCount = validVoteCount;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         CandidateVoteCount that = (CandidateVoteCount) o;
-        return Objects.equals(candidate, that.candidate) && voteType == that.voteType;
+        return validVoteCount == that.validVoteCount && Objects.equals(candidate, that.candidate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(candidate, voteType);
+        return Objects.hash(candidate, validVoteCount);
     }
 
     @Override
     public String toString() {
         return "CandidateVoteCount{" +
                 "candidate='" + candidate + '\'' +
-                ", voteType=" + voteType +
+                ", validVoteCount=" + validVoteCount +
                 '}';
     }
 }
