@@ -114,4 +114,30 @@ public class Dataretriver {
         }
         return pourcentage;
     }
+
+    public ElectionResult findWinner(){
+    ElectionResult electionResult=null;
+    try{
+        DatabaseConnection connection = new DatabaseConnection();
+        Connection conn= connection.getConnection();
+        String sql= """
+                SELECT c.name, COUNT(v.id) AS total
+                FROM vote v inner join  candidate c
+                on v.candidate_id = c.id
+                GROUP BY c.name
+                ORDER BY total DESC
+                LIMIT 1""";
+        PreparedStatement ps=conn.prepareStatement(sql);
+        ResultSet rs=ps.executeQuery();
+        if(rs.next()){
+            electionResult=new ElectionResult(
+                    rs.getString("name"),
+                    rs.getInt("total")
+            );
+        }
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    return electionResult;
+    }
 }
