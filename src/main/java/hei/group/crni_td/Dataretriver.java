@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Dataretriver {
 
-    public long countAllVote(){
+    public long countAllVotes(){
         long count = 0;
         try{
             DatabaseConnection connection = new DatabaseConnection();
@@ -94,5 +94,24 @@ public class Dataretriver {
         }
 
         return voteSummary;
+    }
+
+    public double computeTurnoutRate(){
+        double pourcentage=0.0;
+        try{
+            DatabaseConnection connection = new DatabaseConnection();
+            Connection conn= connection.getConnection();
+            String sql= """
+                    select ( (select count(id) from vote)::decimal/(select count(id) from voter)*100) as pourcentage""";
+            PreparedStatement ps=conn.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+               pourcentage+=rs.getDouble("pourcentage");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return pourcentage;
     }
 }

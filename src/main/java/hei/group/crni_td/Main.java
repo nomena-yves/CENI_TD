@@ -11,7 +11,8 @@ public class Main {
             //System.out.println(dataretriver.getCountVotesByType());
             //System.out.println(dataretriver.computeVoteSummary());
             //System.out.println(dataretriver.countValidVotesByCandidate());
-            System.out.println(dataretriver.countAllVote());
+            //System.out.println(dataretriver.countAllVote());
+            System.out.println(dataretriver.computeTurnoutRate());
         }catch(Exception e){
             e.getMessage();
         }
